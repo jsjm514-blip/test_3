@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1203_review</title>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="task">
+        <button type="submit" id="addTask">+</button>
+    </div>
+    <h1>My Tasks</h1>
+    <ul id="task-container"></ul>
+    <script>
+        const input = document.getElementById('task')
+        const btnAdd = document.getElementById('addTask')
+        const ul = document.getElementById('task-container')
+        let taskList = []
+
+        btnAdd.addEventListener('click',()=>{
+            const newTask=input.value.trim();
+
+            if(newTask==='')return;
+
+            taskList=[...taskList,newTask]
+
+            ul.innerHTML = '';
+            taskList.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task;
+                ul.appendChild(li);
+            });
+
+            input.value='';
+        })
+    </script>
+</body>
+</html>
