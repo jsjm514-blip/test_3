@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1204_review</title>
+    <link rel="stylesheet" href="./css/reset.css">
+<style>
+        body{
+            font-family: sans-serif;
+            background-color: rgb(8, 37, 72);
+            color: #fff;
+        }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 50px auto;
+            border: 1px solid rgba(225, 225, 225, 0.2);
+            border-radius: 10px;
+            padding: 1em;
+            text-align: center;
+        }
+        h1{
+            font-size: 1.5em;
+        }
+        main {
+            margin-top: 1em;
+            padding: 1em 0;
+            border-top: 1px solid rgba(225, 225, 225, 0.2);
+        }
+        section {
+            padding: 20px;
+            border: 1px solid rgb(255,230,88,0.2);
+            border-radius: 15px;
+            margin: 2em 0;
+        }
+        section h2 {
+            font-size: 18px;
+            color: gold;
+            margin-bottom: 20px;
+        }
+        section h3 {
+            color: olive;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: rgb(71, 172, 255);
+            height: 30px;
+            border-radius: 15px;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>회전초밥주문서</h1>
+            <p>원하는 초밥을 선택해서 주문목록에 담아보세요</p>
+        </header>
+        <main>
+            <section class="menu-container">
+                <h2>메뉴선택</h2>
+                <p>가격 : 한접시 1,500원</p>
+                <select id="select-sushi">
+                    <option>연어초밥</option>
+                    <option>광어초밥</option>
+                    <option>참치초밥</option>
+                    <option>새우초밥</option>
+                    <option>계란초밥</option>
+                    <option>유부초밥</option>
+                </select>
+                <button type="button" id="add-btn">
+                    +추가
+                </button>
+            </section>
+            <section class="order-container">
+                <h2>주문목록</h2>
+                <ul id="order-list"></ul>
+            </section>
+            <section class="total-container">
+                <h3>Total</h3>
+                <p>총 수량 <strong id="total-count">0</strong>접시</p>
+                <button type="button" id="btn-calc">계산하기</button>
+            </section>
+            <section class="receipt-container">
+                <h3>영수증</h3>
+                <div>
+                    <p>총 주문금액</p>
+                    <div class="total-price">
+                        <span id="total-price">0</span>원
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        //init
+        const sushiSelect=document.getElementById('select-sushi')
+        const addBtn=document.getElementById('add-btn')
+        const orderList=document.getElementById('order-list')
+        const totalCount=document.getElementById('total-count')
+        const btnCalc=document.getElementById('btn-calc')
+        const totalPrice=document.getElementById('total-price')
+        let orders = [] //초기화
+        const UNIT_PRICE = 1500;
+
+        //event
+        addBtn.addEventListener('click',addSushi)
+        btnCalc.addEventListener('click',showReceipt)
+
+        //feature
+        function addSushi () {
+            const selectedSushi = sushiSelect.value;
+            const newSushi={
+                id : Date.now(),
+                name : selectedSushi
+            }
+            orders=[...orderList,newSushi]
+            render()
+        }
+        function showReceipt () {
+            totalPrice.textContent=order.length*UNIT_PRICE
+        }
+
+
+        function render() {
+            orderList.innerHTML=''; //값 초기화
+            orders.forEach(order=>{
+                const li = document.createElement('li')
+                `
+                <span>${order.name}</span>
+                <button class="delete-btn">삭제</button>
+                `
+                li.querySelector('.delete-btn').addEventListener('click',()=>{removeSushi(order.id)})
+                orderList.appendChild(li)
+            })
+            totalCount.textContent=orders.length;
+        }
+        function removeSushi(id){
+            orders=orders.filter(order=>order.id !==id);
+            render();
+        }
+    </script>
+</body>
+</html>
