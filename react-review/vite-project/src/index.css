@@ -1,0 +1,34 @@
+img {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 50px auto;
+}
+
+.big-image {
+  height: 250px;
+  border-radius: 15px;
+}
+
+.thumb-container {
+  display: flex;
+  height: 90px;
+  gap: 10px;
+}
+
+.thumb-container button {
+  cursor: pointer;
+  border: 3px solid #ddd;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.thumb-container button.active {
+  border-color: tomato;
+}
